@@ -1,4 +1,5 @@
 from multiprocessing import Event, Pipe, Process, Queue
+from epics import CAProcess
 
 from PyQt5.QtCore import pyqtSignal, QObject
 
@@ -28,7 +29,7 @@ class CreateProcess(QObject):
         self.evaluate_queue = Pipe()
         self.wait_event = Event()
 
-        new_process = Process(
+        new_process = CAProcess(
             target=run_routine_subprocess,
             args=(
                 self.data_queue,
